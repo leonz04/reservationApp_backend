@@ -1,15 +1,36 @@
 const request =require('supertest');
 const app = require('../app');
+const crypto =require('crypto')
 
 let id;
 let token;
 
 // Mock para generar el código de verificación del correo electrónico
-jest.mock('../models/EmailCode', () => ({
-    create: jest.fn().mockImplementation(async (data) => {
-        return { code: 'mocked_code' };
-    })
-}));
+// jest.mock('../models/EmailCode', () => ({
+//     create: jest.fn().mockImplementation(async (data) => {
+//         return { code: 'mocked_code' };
+//     })
+// }));
+
+jest.spyOn(crypto, 'randomBytes').mockReturnValue({
+    //toString: jest.fn(()=>return algo)
+    toString: jest.fn().mockReturnValue('1973')
+})
+
+jest.mock('bcrypt', ()=>{
+    return {
+        hash: jest.fn().mockReturnValue('4682'),
+        compare: jest.fn((password,hashPassword)=>{
+            if (password==='1324' && hashPassword=='4682'){
+                return true
+            } else{
+                return false
+            }
+        })
+    }
+})
+
+jest.mock('../utils/sendEmail',()=>jest.fn())
 
 
 test ("POST /users should be create a user and return status 201",async()=>{
@@ -30,13 +51,9 @@ test ("POST /users should be create a user and return status 201",async()=>{
 });
 
 test("POST /users/verify should verify a created user", async () => {
-    // Simulamos que el correo electrónico ha sido verificado estableciendo isVerified en true en el modelo de usuario
-    const user = await User.findByPk(id);
-    user.isVerified = true;
-    await user.save();
-
+  
     // Enviamos una solicitud POST para verificar el correo electrónico
-    const res = await request(app).post(`/users/verify/mocked_code`).send();
+    const res = await request(app).get(`/users/verify/1973`).send();
 
     // Esperamos un estado 200 que indique que el correo electrónico se ha verificado correctamente
     expect(res.status).toBe(200);

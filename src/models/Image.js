@@ -1,14 +1,14 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
-const City = sequelize.define('city', {
-    name: {
+const Image = sequelize.define('image', {
+    url: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    //countryId
-
-
+    //holtelId
+},{
+    timestamps:false,
 });
 
-module.exports = City;
+module.exports = Image;

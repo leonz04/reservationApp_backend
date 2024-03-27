@@ -44,7 +44,7 @@ const create = catchError(async(req, res) => {
             <p>Thanks for sign up in this app</p>
         </div>`
      })
-    return res.status(201).json({...result, code});
+    return res.status(201).json(result);
 });
 
 const getOne = catchError(async(req, res) => {
