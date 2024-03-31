@@ -1,6 +1,6 @@
 const catchError = require('../utils/catchError');
 const Image = require('../models/Image');
-const { uploadToCloudinary } = require('../utils/cloudinary');
+const { uploadToCloudinary,deleteFromCloudinary } = require('../utils/cloudinary');
 const Hotel = require('../models/Hotel');
 
 const getAll = catchError(async(req, res) => {
@@ -19,7 +19,7 @@ const remove = catchError(async(req, res) => {
     const { id } = req.params;
     const image = await Image.findByPk(id);
     if(!image) return res.sendStatus(404);
-    await deleteFromCloudinary(Image.imageUrl);
+    await deleteFromCloudinary(image.url);
     await image.destroy();
     return res.sendStatus(204);
 });

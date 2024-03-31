@@ -40,6 +40,7 @@ test ("POST /users should be create a user and return status 201",async()=>{
         email:"email@email.com",
         password:"1324",
         gender:"Other",
+        rol:"user"
     }
     
     const res= await request(app).post('/users').send(body);

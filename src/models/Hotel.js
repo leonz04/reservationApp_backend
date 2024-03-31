@@ -7,11 +7,11 @@ const Hotel = sequelize.define('hotel', {
         allowNull: false
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     price: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL,
         allowNull: false
     },
     address: {
@@ -19,11 +19,11 @@ const Hotel = sequelize.define('hotel', {
         allowNull: false
     },
     lat: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL,
         allowNull: false
     },
     lon: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL,
         allowNull: false
     },
     //cityId

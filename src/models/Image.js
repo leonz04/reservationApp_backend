@@ -3,7 +3,7 @@ const sequelize = require('../utils/connection');
 
 const Image = sequelize.define('image', {
     url: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     //holtelId

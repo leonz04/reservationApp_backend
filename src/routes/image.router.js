@@ -10,7 +10,7 @@ imageRouter.route('/images')
     .get(verifyJWT,getAll)
     .post(verifyJWT,upload.single('image'),create);
 
-imageRouter.route('images/:id')
+imageRouter.route('/images/:id')
     .delete(verifyJWT,remove)
 
 

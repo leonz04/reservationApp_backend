@@ -17,6 +17,7 @@ const main = async() => {
                  password:await bcrypt.hash('test1234',10),
                  gender:"Other",
                  isVerified:true,
+                 rol:"user"
             })
         }
         

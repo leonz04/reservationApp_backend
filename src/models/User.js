@@ -23,11 +23,15 @@ const User = sequelize.define('user', {
         type: DataTypes.ENUM(['Female','Male','Other']),
         allowNull: false
     },
+    rol: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     isVerified: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
-    },
+    }
 });
 
 // User.prototype.toJSON = function () {

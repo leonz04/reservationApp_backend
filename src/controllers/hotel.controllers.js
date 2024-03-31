@@ -3,6 +3,7 @@ const Hotel = require('../models/Hotel');
 const Image = require('../models/Image');
 const City = require('../models/City');
 const Review = require('../models/Review');
+const { Op } = require('sequelize');
 
 
 const getAll = catchError(async(req, res) => {
@@ -20,8 +21,8 @@ const getAll = catchError(async(req, res) => {
         hotelJson.reviews.forEach(reviews => {
             sum += reviews.rating
         });
-        const totlaReviews = hotelJson.reviews.length;
-        const average = totlaReviews > 0 ? sum / totlaReviews : 0;
+        const totalReviews = hotelJson.reviews.length;
+        const average = totalReviews > 0 ? sum / totalReviews : 0;
         delete hotelJson.reviews;
         return{...hotelJson, rating: average}
     })

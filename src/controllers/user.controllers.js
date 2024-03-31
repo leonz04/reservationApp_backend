@@ -14,7 +14,7 @@ const getAll = catchError(async(req, res) => {
 });
 
 const create = catchError(async(req, res) => {
-    const {firstName, lastName,email,password,gender,frontBaseUrl}=req.body;
+    const {firstName, lastName,email,password,gender,frontBaseUrl,rol}=req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 		// guardamos el usuario, le decimos que la contraseña es la encriptada
     const result = await User.create({
@@ -23,6 +23,7 @@ const create = catchError(async(req, res) => {
         firstName,
         lastName,
         gender,
+        rol,
     })
         
     const code = require('crypto').randomBytes(32).toString('hex');
@@ -62,9 +63,9 @@ const remove = catchError(async(req, res) => {
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
-    const {firstName,lastName,email,gender} = req.body
+    const {firstName,lastName,email,gender,rol} = req.body
     const result = await User.update(
-        {firstName, lastName ,email , gender},
+        {firstName, lastName ,email , gender,rol},
         { where: {id}, returning: true }
     );
     if(result[0] === 0) return res.sendStatus(404);
@@ -97,7 +98,7 @@ const verifyEmail = catchError(async(req,res)=>{
         {where:{id:emailCode.userId},returning:true},
     );
     await emailCode.destroy();
-    return res.json(user[1]);
+    return res.json(user[1][0]);
 });
 
 module.exports = {
