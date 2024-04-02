@@ -6,6 +6,15 @@ const City = sequelize.define('city', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    country: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    countryId: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    
     //countryId
 
 
